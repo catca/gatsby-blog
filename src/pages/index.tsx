@@ -4,6 +4,7 @@ import GlobalStyle from 'components/Common/GlobalStyle';
 import Footer from 'components/Common/Footer';
 import CategoryList from 'components/Main/CategoryList';
 import Introduction from 'components/Main/Introduction';
+import PostList from 'components/Main/PostList';
 
 const CATEGORY_LIST = {
     All: 5,
@@ -14,7 +15,7 @@ const CATEGORY_LIST = {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 `;
 
 const IndexPage: FunctionComponent = function () {
@@ -23,6 +24,7 @@ const IndexPage: FunctionComponent = function () {
             <GlobalStyle />
             <Introduction />
             <CategoryList selectedCategory="Web" categoryList={CATEGORY_LIST} />
+            <PostList />
             <Footer />
         </Container>
     );
