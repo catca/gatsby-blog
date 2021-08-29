@@ -1,10 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-interface TextProps {
-    text: string;
-}
-
-const Text: FunctionComponent<TextProps> = function ({ text }) {
+const Text: FunctionComponent = function ({ text }) {
     return <div>{text}</div>;
 };
 
