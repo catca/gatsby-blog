@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
 import Template from 'components/Common/Template';
 import PostHead, { PostHeadProps } from 'components/Post/PostHead';
+import PostContent from 'components/Post/PostContent';
 
 interface PostTemplateProps {
     data: {
@@ -30,6 +31,7 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
     return (
         <Template>
             <PostHead {...frontmatter} />
+            <PostContent html={html} />
         </Template>
     );
 };
