@@ -1,15 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
+import Template from 'components/Common/Template';
 
 interface PostTemplateProps { }
 
 const PostTemplate: FunctionComponent<PostTemplateProps> = function (props) {
     console.log(props);
 
-    return <div>Post Template</div>;
+    return <Template>Post Template</Template>;
 };
-
-export default PostTemplate;
 
 export const queryMarkdownDataBySlug = graphql`
     query queryMarkdownDataBySlug($slug: String) {
