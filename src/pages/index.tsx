@@ -87,8 +87,8 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
 
 export default IndexPage;
 
-export const queryPostList = graphql`
-    query queryPostList {
+export const getPostList = graphql`
+    query getPostList {
         allMarkdownRemark(
             sort: {
                 order: DESC
@@ -98,6 +98,9 @@ export const queryPostList = graphql`
             edges {
                 node {
                     id
+                    fields {
+                        slug
+                    }
                     frontmatter {
                         title
                         summary
