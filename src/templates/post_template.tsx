@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import Template from 'components/Common/Template';
 import PostHead from 'components/Post/PostHead';
 import PostContent from 'components/Post/PostContent';
+import Rain from 'components/Canvas/Rain';
 import { FluidObject } from 'gatsby-image';
 
 interface PostTemplateProps {
@@ -58,13 +59,14 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
 
   return (
     <Template title={title} description={summary} url={href} image={publicURL}>
-      <PostHead
-        title={title}
-        date={date}
-        categories={categories}
-        thumbnail={fluid}
-      />
-      <PostContent html={html} />
+      {categories.filter((element) => element === 'Rain')[0] === 'Rain' ? <Rain /> :
+        <PostHead
+          title={title}
+          date={date}
+          categories={categories}
+          thumbnail={fluid}
+        />}
+      <PostContent html={html} categories={categories} />
     </Template>
   );
 };

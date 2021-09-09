@@ -5,6 +5,7 @@ const FooterWrapper = styled.footer`
   display: grid;
   place-items: center;
   margin-top: auto;
+  height: 120px;
   padding: 50px 0;
   font-size: 15px;
   text-align: center;
