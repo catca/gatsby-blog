@@ -1,6 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import styled from '@emotion/styled';
 import GlobalStyle from 'components/Common/GlobalStyle';
+import Header from 'components/Common/Header';
 import Footer from 'components/Common/Footer';
 import { Helmet } from 'react-helmet';
 
@@ -16,6 +17,13 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   height: 100%;
+`;
+
+const Content = styled.div`
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh -  180px);
 `;
 
 const Template: FunctionComponent<TemplateProps> = function ({
@@ -59,9 +67,11 @@ const Template: FunctionComponent<TemplateProps> = function ({
 
         <html lang="ko" />
       </Helmet>
-
+      <Header />
       <GlobalStyle />
-      {children}
+      <Content>
+        {children}
+      </Content>
       <Footer />
     </Container>
   );

@@ -176,7 +176,7 @@ const DarkMarkdownRenderer = styled.div`
   display: flex;
   flex-direction: column;
   width: 768px;
-  height: calc(100vh - 260px);
+  min-height: 100%;
   margin: 0 auto;
   word-break: break-all;
   color: white;
