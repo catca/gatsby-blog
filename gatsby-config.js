@@ -84,5 +84,11 @@ module.exports = {
         policy: [{ userAgent: '*', allow: '/' }],
       },
     },
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+      },
+    },
   ],
 };

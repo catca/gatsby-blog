@@ -22,6 +22,7 @@
     "gatsby-plugin-sharp": "^2.8.0",
     "gatsby-plugin-sitemap": "^2.12.0",
     "gatsby-plugin-typescript": "^2.11.0",
+    "gatsby-plugin-typography": "^3.13.0",
     "gatsby-remark-copy-linked-files": "^2.9.0",
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-images": "^3.10.0",
@@ -35,7 +36,9 @@
     "query-string": "^6.13.8",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-typography": "^0.16.20",
+    "typography": "^0.16.21"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.14.0",
