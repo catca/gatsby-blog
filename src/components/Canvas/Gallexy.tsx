@@ -8,15 +8,15 @@ const Canvas = styled.canvas`
   height: 100%;
 `;
 
-const Gallexy = (props) => {
+const Gallexy = (props: any) => {
     const canvasRef = useRef(null);
     const [startEffect, setStartEffect] = useState(false)
     const [start, setStart] = useState(false)
     const { angle } = props;
     let canvas = canvasRef.current;
-    let ctx;
+    let ctx: any;
 
-    const particleArray = [];
+    const particleArray: [] = [];
 
     useEffect(() => {
         canvas = canvasRef.current;
@@ -31,18 +31,12 @@ const Gallexy = (props) => {
         animation();
     }, [startEffect])
 
-    window.addEventListener('resize', function () {
-        if (!start) return;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    })
-
     class Particle {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
             this.size = Math.random() * 5 + 1;
-            this.speed = Math.random();
+            this.speed = Math.random() * 2;
             this.speedX = this.speed * -8 * Math.sin(angle.animation.to);
             this.speedY = this.speed * 8 * Math.cos(angle.animation.to);
         }
@@ -74,7 +68,7 @@ const Gallexy = (props) => {
     const animation = () => {
         if (!start) return;
         // ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         particleArray.push(new Particle());
         handleParticles();

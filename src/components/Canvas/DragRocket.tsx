@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSpring, to, animated, config } from 'react-spring'
 import { scale, dist } from 'vec-la'
 import { useDrag } from 'react-use-gesture'
 import styled from '@emotion/styled'
-import Gallaxy from './star'
+import Gallaxy from './Gallexy'
 import robot from './r.png'
 
 const Animated = styled(animated.div)`
@@ -29,13 +29,12 @@ const Animated = styled(animated.div)`
 function DragRocket() {
     const [{ pos }, set] = useSpring(() => ({ pos: [0, 0] }))
     const [{ angle }, setAngle] = useSpring(() => ({ angle: 0, config: config.wobbly }))
+    const [isRunning, setIsRunning] = useState(false)
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
     const rocketRef = useRef(0)
-    const windowWidth = window.innerWidth
-    const windowHeight = window.innerHeight
-    // direction calculates pointer direction
-    // memo is like a cache, it contains the values that you return inside "set"
-    // this way we can inject the springs current coordinates on the initial event and
-    // add movement to it for convenience
 
     const bind = useDrag(
         ({ xy, previous, down, movement: pos, velocity, direction }) => {
@@ -47,12 +46,27 @@ function DragRocket() {
         { initial: () => pos.get() }
     )
 
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            function handleResize() {
+                setWindowSize({
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                });
+            }
+            window.addEventListener("resize", handleResize);
+
+            handleResize();
+            return () => window.removeEventListener("resize", handleResize);
+        }
+    }, []);
+
     useInterval(() => {
         if (rocketRef.current.getBoundingClientRect().x < 0 && pos.animation.config.velocity[0] < 0) {
             set({ config: { velocity: [pos.animation.config.velocity[0] * -1 / 2, pos.animation.config.velocity[1] / 2] } })
             setAngle({ angle: angle.animation.toValues * -1 })
         }
-        else if (rocketRef.current.getBoundingClientRect().x > windowWidth - 140 && pos.animation.config.velocity[0] > 0) {
+        else if (rocketRef.current.getBoundingClientRect().x > windowSize.width - 140 && pos.animation.config.velocity[0] > 0) {
             set({ config: { velocity: [pos.animation.config.velocity[0] * -1 / 2, pos.animation.config.velocity[1] / 2] } })
             setAngle({ angle: angle.animation.toValues * -1 })
         }
@@ -60,11 +74,11 @@ function DragRocket() {
             set({ config: { velocity: [pos.animation.config.velocity[0] / 2, pos.animation.config.velocity[1] * -1 / 2] } })
             setAngle({ angle: Math.PI - angle.animation.toValues })
         }
-        else if (rocketRef.current.getBoundingClientRect().y > windowHeight - 140 && pos.animation.config.velocity[1] > 0) {
+        else if (rocketRef.current.getBoundingClientRect().y > windowSize.height - 140 && pos.animation.config.velocity[1] > 0) {
             set({ config: { velocity: [pos.animation.config.velocity[0] / 2, pos.animation.config.velocity[1] * -1 / 2] } })
             setAngle({ angle: Math.PI - angle.animation.toValues })
         }
-    }, 100);
+    }, isRunning ? 10 : null);
 
     function useInterval(callback, delay) {
         const savedCallback = useRef();
@@ -78,9 +92,22 @@ function DragRocket() {
                 savedCallback.current();
             }
 
-            let id = setInterval(tick, delay);
-            return () => clearInterval(id);
+            if (delay !== null) {
+                let id = setInterval(tick, delay);
+                return () => clearInterval(id);
+            }
         }, [delay]);
+    }
+
+    const onclick = () => {
+        // console.log(pos.animation.config.velocity)
+        // set({ config: { velocity: [pos.animation.config.velocity[0] * -1, pos.animation.config.velocity[1] * -1] } })
+        // console.log(angle.animation.fromValues)
+        // setAngle({ angle: angle.animation.fromValues * -1 })
+        setIsRunning(true)
+        setTimeout(() => {
+            setIsRunning(false)
+        }, 5000);
     }
 
     return (
@@ -90,12 +117,7 @@ function DragRocket() {
                 ref={rocketRef}
                 {...bind()}
                 style={{ transform: to([pos, angle], ([x, y], a) => `translate3d(${x}px,${y}px,0) rotate(${a}rad)`) }}
-                onClick={() => {
-                    // console.log(pos.animation.config.velocity)
-                    // set({ config: { velocity: [pos.animation.config.velocity[0] * -1, pos.animation.config.velocity[1] * -1] } })
-                    // console.log(angle.animation.fromValues)
-                    // setAngle({ angle: angle.animation.fromValues * -1 })
-                }}
+                onClick={onclick}
             />
         </>
     )
