@@ -156,7 +156,7 @@ const PostContent: FunctionComponent<PostContentProps> = function ({ html, categ
   const goBackPage = () => window.history.back();
   return (
     <>
-      {categories[1] === 'Rain' ?
+      {categories[0] === 'Canvas' ?
         <>
           <PrevPageIcon onClick={goBackPage}>
             <FontAwesomeIcon icon={faArrowLeft} />

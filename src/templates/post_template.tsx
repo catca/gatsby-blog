@@ -4,6 +4,7 @@ import Template from 'components/Common/Template';
 import PostHead from 'components/Post/PostHead';
 import PostContent from 'components/Post/PostContent';
 import Rain from 'components/Canvas/Rain';
+import DragRocket from 'components/Canvas/DragRocket';
 import { FluidObject } from 'gatsby-image';
 
 interface PostTemplateProps {
@@ -60,12 +61,13 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
   return (
     <Template title={title} description={summary} url={href} image={publicURL}>
       {categories.filter((element) => element === 'Rain')[0] === 'Rain' ? <Rain /> :
-        <PostHead
-          title={title}
-          date={date}
-          categories={categories}
-          thumbnail={fluid}
-        />}
+        categories.filter((element) => element === 'Rocket')[0] === 'Rocket' ? <DragRocket /> :
+          <PostHead
+            title={title}
+            date={date}
+            categories={categories}
+            thumbnail={fluid}
+          />}
       <PostContent html={html} categories={categories} />
     </Template>
   );
