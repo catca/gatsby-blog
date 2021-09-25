@@ -9,7 +9,7 @@ const Canvas = styled.canvas`
 `;
 
 const Gallexy = (props: any) => {
-    const canvasRef = useRef(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
     const [startEffect, setStartEffect] = useState(false)
     const [start, setStart] = useState(false)
     const { angle } = props;

@@ -5,6 +5,7 @@ import { useDrag } from 'react-use-gesture'
 import styled from '@emotion/styled'
 import Gallaxy from './Gallexy'
 import robot from './r.png'
+import { number } from 'prop-types'
 
 const Animated = styled(animated.div)`
     position: fixed;
@@ -31,8 +32,8 @@ function DragRocket() {
     const [{ angle }, setAngle] = useSpring(() => ({ angle: 0, config: config.wobbly }))
     const [isRunning, setIsRunning] = useState(false)
     const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined,
+        width: undefined || number,
+        height: undefined || number,
     });
     const rocketRef = useRef(0)
 
@@ -95,6 +96,8 @@ function DragRocket() {
             if (delay !== null) {
                 let id = setInterval(tick, delay);
                 return () => clearInterval(id);
+            } else {
+                return () => { };
             }
         }, [delay]);
     }
