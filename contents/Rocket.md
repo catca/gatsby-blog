@@ -6,4 +6,7 @@ summary: '우주를 유영하는 로켓.'
 thumbnail: './gallexy.PNG'
 ---
 
-### useDrag를 이용해서 Rocket을 갖고 놀 수 있게 해보았다. 히히
+### useDrag, useSpring, canvas 사용
+
+useDrag를 이용하여 Rocket을 드래그 하고, 마우스 이동에서 속도를 구해 useSpring으로 속도에 따라 움직임을 준다.  
+또한 마우스 이동에 따른 각도를 가져와 canvas에서 각도에 따른 별의 이동을 주어 우주에 있는 듯한 느낌을 연출하였다.
