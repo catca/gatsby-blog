@@ -1,7 +1,7 @@
 ---
 date: '2021-09-09'
 title: 'Rainy Day'
-categories: ['Canvas', 'Rain']
+categories: ['canvas', 'Rain']
 summary: '비가 내리는 배경.'
 thumbnail: './rain.png'
 ---

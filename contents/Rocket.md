@@ -1,7 +1,7 @@
 ---
 date: '2021-09-12'
 title: 'Rocket in gallexy'
-categories: ['Canvas', 'Rocket']
+categories: ['canvas', 'Rocket']
 summary: '우주를 유영하는 로켓.'
 thumbnail: './gallexy.PNG'
 ---
