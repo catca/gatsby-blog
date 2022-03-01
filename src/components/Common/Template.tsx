@@ -73,7 +73,7 @@ const Template: FunctionComponent<TemplateProps> = function ({
       <Content>
         {children}
       </Content>
-      <Footer />
+      <Footer children={children}/>
     </Container>
   );
 };

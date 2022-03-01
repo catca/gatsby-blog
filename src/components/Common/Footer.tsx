@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 const FooterWrapper = styled.footer`
@@ -17,12 +17,20 @@ const FooterWrapper = styled.footer`
   }
 `;
 
-const Footer: FunctionComponent = function () {
-  return (
-    <FooterWrapper>
-      저의 블로그를 찾아주셔서 감사합니다. 행복한 하루되세요!💕
-    </FooterWrapper>
-  );
+const Footer = ({ children }: { children: any }) => {
+  if (children[1].props.categories) {
+    return (
+      <FooterWrapper style={{ color: `${children[1].props.categories[0] === 'canvas' ? '#FFF' : '#000'}` }}>
+        저의 블로그를 찾아주셔서 감사합니다. 행복한 하루되세요!💕
+      </FooterWrapper>
+    );
+  } else {
+    return (
+      <FooterWrapper>
+        저의 블로그를 찾아주셔서 감사합니다. 행복한 하루되세요!💕
+      </FooterWrapper>
+    );
+  }
 };
 
 export default Footer;
