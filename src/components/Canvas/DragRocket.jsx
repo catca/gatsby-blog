@@ -30,7 +30,7 @@ const Animated = styled(animated.div)`
 function DragRocket() {
     const [{ pos }, set] = useSpring(() => ({ pos: [0, 0] }))
     const [{ angle }, setAngle] = useSpring(() => ({ angle: 0, config: config.wobbly }))
-    const [isRunning, setIsRunning] = useState(false)
+    const running = useRef(false);
     const [windowSize, setWindowSize] = useState({
         width: undefined || number,
         height: undefined || number,
@@ -60,9 +60,14 @@ function DragRocket() {
             handleResize();
             return () => window.removeEventListener("resize", handleResize);
         }
+        return () => null;
     }, []);
 
-    useInterval(() => {
+    const activeMode = () => {
+        if (!running.current) {
+            cancelAnimationFrame(activeMode);
+            return;
+        }
         if (rocketRef.current.getBoundingClientRect().x < 0 && pos.animation.config.velocity[0] < 0) {
             set({ config: { velocity: [pos.animation.config.velocity[0] * -1 / 2, pos.animation.config.velocity[1] / 2] } })
             setAngle({ angle: angle.animation.toValues * -1 })
@@ -79,37 +84,14 @@ function DragRocket() {
             set({ config: { velocity: [pos.animation.config.velocity[0] / 2, pos.animation.config.velocity[1] * -1 / 2] } })
             setAngle({ angle: Math.PI - angle.animation.toValues })
         }
-    }, isRunning ? 10 : null);
-
-    function useInterval(callback, delay) {
-        const savedCallback = useRef();
-
-        useEffect(() => {
-            savedCallback.current = callback;
-        });
-
-        useEffect(() => {
-            function tick() {
-                savedCallback.current();
-            }
-
-            if (delay !== null) {
-                let id = setInterval(tick, delay);
-                return () => clearInterval(id);
-            } else {
-                return () => { };
-            }
-        }, [delay]);
+        requestAnimationFrame(activeMode);
     }
 
     const onclick = () => {
-        // console.log(pos.animation.config.velocity)
-        // set({ config: { velocity: [pos.animation.config.velocity[0] * -1, pos.animation.config.velocity[1] * -1] } })
-        // console.log(angle.animation.fromValues)
-        // setAngle({ angle: angle.animation.fromValues * -1 })
-        setIsRunning(true)
+        running.current = true;
+        activeMode();
         setTimeout(() => {
-            setIsRunning(false)
+            running.current = false;
         }, 5000);
     }
 

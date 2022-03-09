@@ -28,7 +28,8 @@
     "noImplicitAny": false,
   },
   "include": [
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "src/components/Canvas/DragRocket.jsx"
   ],
   "exclude": [
     "node_modules"
